@@ -1,4 +1,4 @@
-package com.account
+package application
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
