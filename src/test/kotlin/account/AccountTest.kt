@@ -13,7 +13,7 @@ class AccountTest {
 	}
 
 	@Test
-	fun `should crediti an account`() {
+	fun `should credit an account`() {
 		val account = Account("9875654")
 
 		account.credit(100)
