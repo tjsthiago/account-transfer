@@ -4,8 +4,8 @@ import entity.Account
 import entity.AccountTransferService
 import ports.driven.repository.InMemoryAccountRepository
 import org.junit.jupiter.api.Test
-import usecase.AccountTransferUseCaseInput
-import usecase.AccountTransferUsecase
+import usecase.account.transfer.AccountTransferUseCaseInput
+import usecase.account.transfer.AccountTransferUsecase
 
 class AccountTransferUseCaseTest {
 

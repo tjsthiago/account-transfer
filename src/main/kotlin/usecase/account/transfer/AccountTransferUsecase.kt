@@ -1,4 +1,4 @@
-package usecase
+package usecase.account.transfer
 
 import entity.AccountTransferService
 import ports.driven.repository.AccountRepository
