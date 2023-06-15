@@ -1,4 +1,4 @@
-package account.entity
+package entity
 
 class Account(
     private val id: String

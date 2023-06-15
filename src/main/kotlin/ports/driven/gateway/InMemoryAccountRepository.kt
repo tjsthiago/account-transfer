@@ -1,8 +1,8 @@
-package account.gateway
+package ports.driven.gateway
 
-import account.entity.Account
+import entity.Account
 
-class InMemoryAccountGateway : AccountGateway {
+class InMemoryAccountRepository : AccountRepository {
     private var accounts = mutableListOf<Account>()
     override fun get(id: String): Account {
         return accounts.firstOrNull { it.getId() == id }

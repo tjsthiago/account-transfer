@@ -1,5 +1,6 @@
 package account.entity
 
+import entity.Account
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

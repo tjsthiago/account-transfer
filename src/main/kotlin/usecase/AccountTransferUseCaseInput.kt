@@ -1,6 +1,6 @@
-package account.usecase
+package usecase
 
-data class TransferUseCaseInput (
+data class AccountTransferUseCaseInput (
     val from: String,
     val to: String,
     val amount: Double

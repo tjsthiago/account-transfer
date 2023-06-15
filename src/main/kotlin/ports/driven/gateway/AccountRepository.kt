@@ -1,8 +1,8 @@
-package account.gateway
+package ports.driven.gateway
 
-import account.entity.Account
+import entity.Account
 
-interface AccountGateway {
+interface AccountRepository {
 
     fun get(id: String): Account
 

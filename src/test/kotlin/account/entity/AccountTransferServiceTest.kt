@@ -1,11 +1,13 @@
 package account.entity
 
+import entity.Account
+import entity.AccountTransferService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class TransferServiceTest {
+class AccountTransferServiceTest {
 
-    private val transferService = TransferService()
+    private val transferService = AccountTransferService()
 
     @Test
     fun `should transfer amount between two accounts`() {

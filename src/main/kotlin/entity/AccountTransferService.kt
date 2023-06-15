@@ -1,6 +1,6 @@
-package account.entity
+package entity
 
-class TransferService {
+class AccountTransferService {
 
     fun transfer(from: Account, to: Account, amount: Double) {
         from.debit(amount)

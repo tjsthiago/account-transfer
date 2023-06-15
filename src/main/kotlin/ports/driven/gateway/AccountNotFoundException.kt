@@ -1,4 +1,4 @@
-package account.gateway
+package ports.driven.gateway
 
 class AccountNotFoundException(message: String?) : Exception(message) {
 }
