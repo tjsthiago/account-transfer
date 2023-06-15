@@ -1,4 +1,4 @@
-package ports.driven.gateway
+package ports.driven.repository
 
 import entity.Account
 

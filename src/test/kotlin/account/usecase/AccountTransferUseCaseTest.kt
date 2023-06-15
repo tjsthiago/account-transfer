@@ -2,7 +2,7 @@ package account.usecase
 
 import entity.Account
 import entity.AccountTransferService
-import ports.driven.gateway.InMemoryAccountRepository
+import ports.driven.repository.InMemoryAccountRepository
 import org.junit.jupiter.api.Test
 import usecase.AccountTransferUseCaseInput
 import usecase.AccountTransferUsecase

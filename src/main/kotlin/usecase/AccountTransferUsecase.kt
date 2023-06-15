@@ -1,7 +1,7 @@
 package usecase
 
 import entity.AccountTransferService
-import ports.driven.gateway.AccountRepository
+import ports.driven.repository.AccountRepository
 
 class AccountTransferUsecase(
     private val accountGateway: AccountRepository,
