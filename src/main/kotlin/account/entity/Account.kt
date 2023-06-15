@@ -1,17 +1,18 @@
-package account
+package account.entity
 
 class Account(
     private val id: String
 ) {
+    fun getId() = id
 
-    var balance: Int = 0
+    var balance: Double = 0.0
         private set
 
-    fun credit(amount: Int) {
+    fun credit(amount: Double) {
         this.balance += amount
     }
 
-    fun debit(amount: Int) {
+    fun debit(amount: Double) {
         this.balance -= amount
     }
 
