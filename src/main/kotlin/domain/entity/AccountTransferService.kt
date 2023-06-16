@@ -1,4 +1,4 @@
-package entity
+package domain.entity
 
 class AccountTransferService {
 

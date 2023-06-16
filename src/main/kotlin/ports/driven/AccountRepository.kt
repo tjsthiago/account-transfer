@@ -1,6 +1,6 @@
-package ports.driven.repository
+package ports.driven
 
-import entity.Account
+import domain.entity.Account
 
 interface AccountRepository {
 

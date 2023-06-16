@@ -1,4 +1,4 @@
-package usecase.account.transfer
+package application.usecase
 
 data class AccountTransferUseCaseInput (
     val from: String,

@@ -1,4 +1,4 @@
-package entity
+package domain.entity
 
 class Account(
     private val id: String

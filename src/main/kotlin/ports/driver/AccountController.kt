@@ -1,4 +1,4 @@
-package ports.driven.repository.driver
+package ports.driver
 
 class AccountController {
 }
