@@ -1,4 +1,4 @@
-package ports.driver
+package infra.driver
 
 class AccountController {
 }

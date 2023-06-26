@@ -1,8 +1,8 @@
 package account.usecase
 
-import domain.entity.Account
-import domain.entity.AccountTransferService
-import ports.driven.InMemoryAccountRepository
+import domain.entities.Account
+import domain.entities.AccountTransferService
+import infra.driven.repository.InMemoryAccountRepository
 import org.junit.jupiter.api.Test
 import application.usecase.AccountTransferUseCaseInput
 import application.usecase.AccountTransferUsecase

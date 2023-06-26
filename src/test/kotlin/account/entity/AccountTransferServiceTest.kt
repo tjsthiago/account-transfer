@@ -1,7 +1,7 @@
 package account.entity
 
-import domain.entity.Account
-import domain.entity.AccountTransferService
+import domain.entities.Account
+import domain.entities.AccountTransferService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

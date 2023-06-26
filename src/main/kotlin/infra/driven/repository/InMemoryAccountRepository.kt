@@ -1,6 +1,7 @@
-package ports.driven
+package infra.driven.repository
 
-import domain.entity.Account
+import domain.entities.Account
+import application.repository.AccountRepository
 
 class InMemoryAccountRepository : AccountRepository {
     private var accounts = mutableListOf<Account>()
