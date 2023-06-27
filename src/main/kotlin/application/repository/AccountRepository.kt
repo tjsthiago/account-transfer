@@ -4,10 +4,12 @@ import domain.entities.Account
 
 interface AccountRepository {
 
-    fun get(id: String): Account
+    fun findById(id: String): Account
 
     fun save(account: Account)
 
     fun update(account: Account)
+
+    fun findAll(): List<Account>
 
 }

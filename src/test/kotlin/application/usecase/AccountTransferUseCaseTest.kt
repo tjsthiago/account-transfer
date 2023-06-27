@@ -1,11 +1,9 @@
-package account.usecase
+package application.usecase
 
 import domain.entities.Account
 import domain.entities.AccountTransferService
 import infra.driven.repository.InMemoryAccountRepository
 import org.junit.jupiter.api.Test
-import application.usecase.AccountTransferUseCaseInput
-import application.usecase.AccountTransferUsecase
 
 class AccountTransferUseCaseTest {
 

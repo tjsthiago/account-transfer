@@ -5,7 +5,7 @@ import application.repository.AccountRepository
 
 class InMemoryAccountRepository : AccountRepository {
     private var accounts = mutableListOf<Account>()
-    override fun get(id: String): Account {
+    override fun findById(id: String): Account {
         return accounts.firstOrNull { it.getId() == id }
             ?: throw AccountNotFoundException("Account with id[$id] not found.")
     }
@@ -26,4 +26,9 @@ class InMemoryAccountRepository : AccountRepository {
             accounts.add(account)
         }
     }
+
+    override fun findAll(): List<Account> {
+        return accounts
+    }
+
 }

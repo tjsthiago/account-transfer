@@ -1,4 +1,4 @@
-package account.entity
+package domain.entity
 
 import domain.entities.Account
 import domain.entities.AccountTransferService

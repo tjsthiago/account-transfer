@@ -1,4 +1,4 @@
-package account.entity
+package domain.entity
 
 import domain.entities.Account
 import org.junit.jupiter.api.Assertions.assertEquals

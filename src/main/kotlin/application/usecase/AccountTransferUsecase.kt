@@ -9,8 +9,8 @@ class AccountTransferUsecase(
 ) {
 
     fun execute(input: AccountTransferUseCaseInput): AccountTransferUseCaseOutput {
-        val from = this.accountGateway.get(input.from)
-        val to = this.accountGateway.get(input.to)
+        val from = this.accountGateway.findById(input.from)
+        val to = this.accountGateway.findById(input.to)
 
         accountTransferService.transfer(
             from,
