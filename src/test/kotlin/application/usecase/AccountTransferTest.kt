@@ -3,16 +3,17 @@ package application.usecase
 import domain.entities.Account
 import domain.entities.AccountTransferService
 import infra.driven.repository.InMemoryAccountRepository
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
-class AccountTransferUseCaseTest {
+class AccountTransferTest {
 
     @Test
     fun `should transfer amount between two accounts`() {
         val accountRepository = InMemoryAccountRepository()
         val accountTransferService = AccountTransferService()
 
-        val transferUseCase = AccountTransferUsecase(
+        val transferUseCase = AccountTransfer(
             accountRepository,
             accountTransferService
         )
@@ -26,12 +27,14 @@ class AccountTransferUseCaseTest {
 
         val amount = 50.0
 
-        val input = AccountTransferUseCaseInput(
+        val input = AccountTransferInput(
             from.getId(),
             to.getId(),
             amount
         )
 
-        transferUseCase.execute(input)
+        val result = transferUseCase.execute(input)
+
+        assertTrue(result.success)
     }
 }
