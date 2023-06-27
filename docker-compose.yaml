@@ -1,0 +1,19 @@
+version: "3.6"
+
+services:
+  db:
+    image: postgres:11.4
+    container_name: account-transfer-db
+    platform: linux/x86_64
+    environment:
+      - POSTGRES_DB=account-transfer
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  db:
+    driver: local
