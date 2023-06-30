@@ -4,29 +4,33 @@ import com.account.transfer.application.repository.AccountPersistencePort
 import com.account.transfer.domain.entities.Account
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.boot.test.context.SpringBootTest
+import kotlin.random.Random
 
+@SpringBootTest()
 class InMemoryAccountRepositoryTest {
+
+    @Autowired
+    @Qualifier("AccountInMemoryPersistenceAdapter")
+    private lateinit var accountPersistencePort: AccountPersistencePort
 
     @Test
     fun `should save an account`() {
-        val accountPersistencePort: AccountPersistencePort = AccountInMemoryPersistenceAdapter()
-
         val initialAccountListSize = accountPersistencePort.findAll().size
 
-        val account = Account(9875654L)
+        val account = Account(Random.nextLong(0, 1000))
         accountPersistencePort.save(account)
 
         val accountListSizeAfterSaveNewAccount = accountPersistencePort.findAll().size
 
-        assertEquals(0, initialAccountListSize)
-        assertEquals(1, accountListSizeAfterSaveNewAccount)
+        assertEquals(initialAccountListSize + 1, accountListSizeAfterSaveNewAccount)
     }
 
     @Test
     fun `should get an account`() {
-        val accountPersistencePort: AccountPersistencePort = AccountInMemoryPersistenceAdapter()
-
-        val accountId = 9875654L
+        val accountId = Random.nextLong(0, 1000)
         val account = Account(accountId)
         accountPersistencePort.save(account)
 
@@ -37,11 +41,10 @@ class InMemoryAccountRepositoryTest {
 
     @Test
     fun `given one nonexistent account id should throw an AccountNotFoundException`() {
-        val accountPersistencePort: AccountPersistencePort = AccountInMemoryPersistenceAdapter()
-
+        val accountId = Random.nextLong(0, 1000)
         val nonexistentAccountId = 0L
 
-        val account = Account(9875654L)
+        val account = Account(accountId)
         accountPersistencePort.save(account)
 
         val thrown: AccountNotFoundException = assertThrows(
@@ -56,9 +59,7 @@ class InMemoryAccountRepositoryTest {
 
     @Test
     fun `should update an account`() {
-        val accountPersistencePort: AccountPersistencePort = AccountInMemoryPersistenceAdapter()
-
-        val accountId = 9875654L
+        val accountId = Random.nextLong(0, 1000)
         val account = Account(accountId)
         accountPersistencePort.save(account)
 

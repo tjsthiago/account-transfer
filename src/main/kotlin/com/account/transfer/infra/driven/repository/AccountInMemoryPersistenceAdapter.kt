@@ -3,12 +3,13 @@ package com.account.transfer.infra.driven.repository
 import com.account.transfer.domain.entities.Account
 import com.account.transfer.application.repository.AccountPersistencePort
 import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.stereotype.Repository
+import org.springframework.stereotype.Component
 
-@Repository
+@Component
 @Qualifier("AccountInMemoryPersistenceAdapter")
 class AccountInMemoryPersistenceAdapter : AccountPersistencePort {
     private var accounts = mutableListOf<Account>()
+
     override fun findByAccountId(id: Long): Account {
         return accounts.firstOrNull { it.getId() == id }
             ?: throw AccountNotFoundException("Account with id[$id] not found.")
