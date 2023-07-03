@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest
 class AccountTransferTest {
 
     @Autowired
-    @Qualifier("AccountInMemoryPersistenceAdapter")
+    @Qualifier("AccountPersistenceAdapter")
     private lateinit var accountPersistencePort: AccountPersistencePort
 
     @Test
@@ -35,8 +35,8 @@ class AccountTransferTest {
         val amount = 50.0
 
         val input = AccountTransferInput(
-            from.getId(),
-            to.getId(),
+            from.getAccountId(),
+            to.getAccountId(),
             amount
         )
 

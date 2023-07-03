@@ -11,12 +11,12 @@ class AccountInMemoryPersistenceAdapter : AccountPersistencePort {
     private var accounts = mutableListOf<Account>()
 
     override fun findByAccountId(id: Long): Account {
-        return accounts.firstOrNull { it.getId() == id }
+        return accounts.firstOrNull { it.getAccountId() == id }
             ?: throw AccountNotFoundException("Account with id[$id] not found.")
     }
 
     override fun save(account: Account) {
-        val existingAccount = accounts.firstOrNull { it.getId() == account.getId() }
+        val existingAccount = accounts.firstOrNull { it.getAccountId() == account.getAccountId() }
 
         if (existingAccount == null) {
             accounts.add(account)
@@ -24,7 +24,7 @@ class AccountInMemoryPersistenceAdapter : AccountPersistencePort {
     }
 
     override fun update(account: Account) {
-        val existingAccount = accounts.firstOrNull { it.getId() == account.getId() }
+        val existingAccount = accounts.firstOrNull { it.getAccountId() == account.getAccountId() }
 
         existingAccount?.let {
             accounts.remove(existingAccount)

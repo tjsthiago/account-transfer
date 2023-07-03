@@ -1,9 +1,9 @@
 package com.account.transfer.domain.entities
 
 class Account(
-    private val id: Long,
+    private val accountId: Long,
 ) {
-    fun getId() = id
+    fun getAccountId() = accountId
 
     var balance: Double = 0.0
         private set

@@ -35,7 +35,7 @@ class AccountPersistenceAdapter (
     }
 
     override fun update(account: Account) {
-        val persisted = findAccountEntityByAccountId(account.getId())
+        val persisted = findAccountEntityByAccountId(account.getAccountId())
 
         val toUpdate = convertDomainEntityToPersistenceEntity(account).copy(
             id = persisted.id
@@ -69,7 +69,7 @@ class AccountPersistenceAdapter (
 
     private fun convertDomainEntityToPersistenceEntity(account: Account) : AccountEntity {
         return AccountEntity(
-            account.getId(),
+            account.getAccountId(),
             account.balance
         )
     }
