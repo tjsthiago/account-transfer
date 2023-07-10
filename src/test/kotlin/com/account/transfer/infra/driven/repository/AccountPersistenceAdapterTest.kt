@@ -3,6 +3,7 @@ package com.account.transfer.infra.driven.repository
 import com.account.transfer.application.repository.AccountPersistencePort
 import com.account.transfer.domain.entities.Account
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
@@ -15,6 +16,11 @@ class AccountPersistenceAdapterTest {
     @Autowired
     @Qualifier("AccountPersistenceAdapter")
     private lateinit var accountPersistencePort: AccountPersistencePort
+
+    @BeforeEach
+    fun before() {
+        accountPersistencePort.deleteAll()
+    }
 
     @Test
     fun `should save an account`() {
