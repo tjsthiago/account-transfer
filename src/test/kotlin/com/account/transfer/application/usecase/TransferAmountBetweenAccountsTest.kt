@@ -1,8 +1,9 @@
 package com.account.transfer.application.usecase
 
 import com.account.transfer.application.repository.AccountPersistencePort
+import com.account.transfer.application.usecase.transfer.ammount.TransferAmountBetweenAccounts
+import com.account.transfer.application.usecase.transfer.ammount.TransferAmountInput
 import com.account.transfer.domain.entities.Account
-import com.account.transfer.domain.entities.AccountAmountTransferService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
@@ -11,11 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest()
+@SpringBootTest
 class TransferAmountBetweenAccountsTest {
 
     @Autowired
-    @Qualifier("AccountPersistenceAdapter")
+    @Qualifier("AccountInMemoryPersistenceAdapter")
     private lateinit var accountPersistencePort: AccountPersistencePort
 
     @BeforeEach
@@ -25,11 +26,8 @@ class TransferAmountBetweenAccountsTest {
 
     @Test
     fun `should transfer amount between two accounts`() {
-        val accountAmountTransferService = AccountAmountTransferService()
-
         val transferUseCase = TransferAmountBetweenAccounts(
-            accountPersistencePort,
-            accountAmountTransferService
+            accountPersistencePort
         )
 
         val accountIdFrom = 987654L
@@ -49,12 +47,12 @@ class TransferAmountBetweenAccountsTest {
             amount
         )
 
-        val result = transferUseCase.execute(input)
+        val output = transferUseCase.execute(input)
 
         val fromAccontAfterTransfer = accountPersistencePort.findByAccountId(accountIdFrom)
         val toAccontAfterTransfer = accountPersistencePort.findByAccountId(accountIdTo)
 
-        assertTrue(result.success)
+        assertTrue(output.success)
         assertEquals(50.0, fromAccontAfterTransfer.balance)
         assertEquals(50.0, toAccontAfterTransfer.balance)
     }

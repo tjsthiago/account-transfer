@@ -3,9 +3,11 @@ package com.account.transfer.infra.driven.repository
 import com.account.transfer.application.repository.AccountPersistencePort
 import com.account.transfer.domain.entities.Account
 import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Component
 
 @Component
+@Primary
 @Qualifier("AccountPersistenceAdapter")
 class AccountPersistenceAdapter (
     private val accountRepository: AccountRepository
