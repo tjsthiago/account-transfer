@@ -1,5 +1,5 @@
 package com.account.transfer.application.usecase
 
-data class AccountTransferOutput(
+data class TransferAmountOutput(
     val success: Boolean
 )

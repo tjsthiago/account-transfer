@@ -3,9 +3,9 @@ package com.account.transfer.domain.entities
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class AccountTransferServiceTest {
+class AccountAmountTransferServiceTest {
 
-    private val transferService = AccountTransferService()
+    private val transferService = AccountAmountTransferService()
 
     @Test
     fun `should transfer amount between two accounts`() {

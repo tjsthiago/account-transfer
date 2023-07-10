@@ -2,7 +2,7 @@ package com.account.transfer.application.usecase
 
 import com.account.transfer.application.repository.AccountPersistencePort
 import com.account.transfer.domain.entities.Account
-import com.account.transfer.domain.entities.AccountTransferService
+import com.account.transfer.domain.entities.AccountAmountTransferService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest()
-class AccountTransferTest {
+class TransferAmountBetweenAccountsTest {
 
     @Autowired
     @Qualifier("AccountPersistenceAdapter")
@@ -25,11 +25,11 @@ class AccountTransferTest {
 
     @Test
     fun `should transfer amount between two accounts`() {
-        val accountTransferService = AccountTransferService()
+        val accountAmountTransferService = AccountAmountTransferService()
 
-        val transferUseCase = AccountTransfer(
+        val transferUseCase = TransferAmountBetweenAccounts(
             accountPersistencePort,
-            accountTransferService
+            accountAmountTransferService
         )
 
         val accountIdFrom = 987654L
@@ -43,7 +43,7 @@ class AccountTransferTest {
 
         val amount = 50.0
 
-        val input = AccountTransferInput(
+        val input = TransferAmountInput(
             from.getAccountId(),
             to.getAccountId(),
             amount

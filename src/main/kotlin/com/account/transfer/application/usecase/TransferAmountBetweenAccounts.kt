@@ -1,18 +1,18 @@
 package com.account.transfer.application.usecase
 
-import com.account.transfer.domain.entities.AccountTransferService
+import com.account.transfer.domain.entities.AccountAmountTransferService
 import com.account.transfer.application.repository.AccountPersistencePort
 
-class AccountTransfer(
+class TransferAmountBetweenAccounts(
     private val accountPersistencePort: AccountPersistencePort,
-    private val accountTransferService: AccountTransferService
+    private val accountAmountTransferService: AccountAmountTransferService
 ) {
 
-    fun execute(input: AccountTransferInput): AccountTransferOutput {
+    fun execute(input: TransferAmountInput): TransferAmountOutput {
         val from = this.accountPersistencePort.findByAccountId(input.from)
         val to = this.accountPersistencePort.findByAccountId(input.to)
 
-        accountTransferService.transfer(
+        accountAmountTransferService.transfer(
             from,
             to,
             input.amount
@@ -21,7 +21,7 @@ class AccountTransfer(
         accountPersistencePort.update(from)
         accountPersistencePort.update(to)
 
-        return AccountTransferOutput(true)
+        return TransferAmountOutput(true)
     }
 
 }
