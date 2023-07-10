@@ -1,4 +1,4 @@
-package com.account.transfer.application.usecase.transfer.ammount
+package com.account.transfer.application.usecase.ammount.transfer
 
 data class TransferAmountInput (
     val from: Long,

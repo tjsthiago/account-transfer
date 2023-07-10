@@ -1,4 +1,4 @@
-package com.account.transfer.application.usecase.transfer.ammount
+package com.account.transfer.application.usecase.ammount.transfer
 
 import com.account.transfer.domain.entities.AccountAmountTransferService
 import com.account.transfer.application.repository.AccountPersistencePort

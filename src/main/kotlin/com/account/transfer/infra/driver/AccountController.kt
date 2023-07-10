@@ -1,8 +1,14 @@
 package com.account.transfer.infra.driver
 
+import com.account.transfer.application.usecase.ammount.credit.CreditAmount
+import com.account.transfer.application.usecase.ammount.credit.CreditAmountInput
+import com.account.transfer.application.usecase.ammount.transfer.TransferAmountBetweenAccounts
+import com.account.transfer.application.usecase.ammount.transfer.TransferAmountInput
 import com.account.transfer.application.usecase.create.CreateAccount
 import com.account.transfer.application.usecase.create.CreateAccountInput
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.PatchMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -12,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/accounts")
 class AccountController (
-    private val createAccount: CreateAccount
+    private val createAccount: CreateAccount,
+    private val creditAmount: CreditAmount,
+    private val transferAmountBetweenAccounts: TransferAmountBetweenAccounts
 ) {
 
     @PostMapping
@@ -24,4 +32,31 @@ class AccountController (
             output.success
         )
     }
+
+    @PostMapping("/transfer")
+    @ResponseStatus(HttpStatus.CREATED)
+    fun transferAmount(@RequestBody request: TransferAmountRequest): TransferAmountResponse {
+        val output = transferAmountBetweenAccounts.execute(
+            TransferAmountInput(
+                request.from,
+                request.to,
+                request.amount
+            )
+        )
+
+        return TransferAmountResponse(
+            output.success
+        )
+    }
+
+    @PatchMapping("/{accountId}")
+    @ResponseStatus(HttpStatus.OK)
+    fun credit(@PathVariable accountId: Long ,@RequestBody request: CreditAmountRequest): CreditAmountResponse {
+        val output = creditAmount.execute(CreditAmountInput(accountId, request.amount))
+
+        return CreditAmountResponse(
+            output.success
+        )
+    }
+
 }

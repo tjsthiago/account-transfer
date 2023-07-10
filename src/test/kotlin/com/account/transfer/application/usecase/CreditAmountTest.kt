@@ -1,42 +1,42 @@
 package com.account.transfer.application.usecase
 
 import com.account.transfer.application.repository.AccountPersistencePort
+import com.account.transfer.application.usecase.ammount.credit.CreditAmount
+import com.account.transfer.application.usecase.ammount.credit.CreditAmountInput
 import com.account.transfer.application.usecase.create.CreateAccount
 import com.account.transfer.application.usecase.create.CreateAccountInput
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class CreateAccountTest {
+class CreditAmountTest {
 
     @Autowired
     @Qualifier("AccountInMemoryPersistenceAdapter")
     private lateinit var accountPersistencePort: AccountPersistencePort
 
-    @BeforeEach
-    fun before() {
-        accountPersistencePort.deleteAll()
-    }
-
     @Test
-    fun `should create a new account`() {
+    fun `should credit an account`() {
         val createAccount = CreateAccount(accountPersistencePort)
+        val creditAmount = CreditAmount(accountPersistencePort)
 
-        val initialAccountBalance = 00.0
+        val amountToCredit = 50.0
         val accountId = 987654L
-        val input = CreateAccountInput(accountId)
 
-        val output = createAccount.execute(input)
+        val createAccountInput = CreateAccountInput(accountId)
+        val createAccountOutput = createAccount.execute(createAccountInput)
 
-        val createdAccount = accountPersistencePort.findByAccountId(accountId)
+        val creditAmountInput = CreditAmountInput(accountId, 50.0)
+        val creditAmountOutput = creditAmount.execute(creditAmountInput)
 
-        assertTrue(output.success)
-        assertEquals(initialAccountBalance, createdAccount.balance)
+        val creditedAccount = accountPersistencePort.findByAccountId(accountId)
+
+        assertTrue(createAccountOutput.success)
+        assertTrue(creditAmountOutput.success)
+        assertEquals(amountToCredit, creditedAccount.balance)
     }
-
 }
