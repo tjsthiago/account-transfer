@@ -10,6 +10,20 @@
   }],
   "queues": [
     {
+      "name": "create-account",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "account-created",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
       "name": "transfer-amount-from-origin-to-target-account",
       "vhost": "/",
       "durable": true,

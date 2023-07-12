@@ -1,8 +1,8 @@
 package com.account.transfer.infra.driver.controller
 
 import com.account.transfer.application.usecase.ammount.credit.CreditAmountInput
-import com.account.transfer.infra.driver.CreateAccountRequest
-import com.account.transfer.infra.driver.TransferAmountRequest
+import com.account.transfer.infra.driver.rest.CreateAccountRequest
+import com.account.transfer.infra.driver.rest.TransferAmountRequest
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -45,8 +45,10 @@ class AccountControllerTest @Autowired constructor(
         val originAccountId = Random.nextLong(0, 99999)
         val originAccountRequest = CreateAccountRequest(originAccountId)
 
-        val amountToCredit = 50.0
-        val creditAmountInput = CreditAmountInput(originAccountId, amountToCredit)
+        val amountToTransfer = 50.0
+
+        val amountToCreditInOriginAccount = 100.0
+        val creditAmountInput = CreditAmountInput(originAccountId, amountToCreditInOriginAccount)
 
         val targetAccountId = Random.nextLong(0, 99999)
         val targetAccountRequest = CreateAccountRequest(targetAccountId)
@@ -59,7 +61,7 @@ class AccountControllerTest @Autowired constructor(
         val transferAmountRequest = TransferAmountRequest(
             originAccountId,
             targetAccountId,
-            50.0
+            amountToTransfer
         )
 
         mockMvc

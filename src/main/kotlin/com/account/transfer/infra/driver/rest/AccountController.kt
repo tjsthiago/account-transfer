@@ -1,4 +1,4 @@
-package com.account.transfer.infra.driver
+package com.account.transfer.infra.driver.rest
 
 import com.account.transfer.application.usecase.ammount.credit.CreditAmount
 import com.account.transfer.application.usecase.ammount.credit.CreditAmountInput
