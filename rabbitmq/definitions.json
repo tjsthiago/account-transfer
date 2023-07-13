@@ -24,6 +24,20 @@
       "arguments": {}
     },
     {
+      "name": "credit-amount",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "amount-credited",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
       "name": "transfer-amount-from-origin-to-target-account",
       "vhost": "/",
       "durable": true,

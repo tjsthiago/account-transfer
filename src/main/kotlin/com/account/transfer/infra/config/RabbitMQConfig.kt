@@ -26,6 +26,24 @@ class RabbitMQConfig {
     @Value("\${routing.key.account.created}")
     private lateinit var accountCreatedRoutingKey: String
 
+    @Value("\${exchange.amount.credited}")
+    private lateinit var amountCreditedExchange: String
+
+    @Value("\${queue.amount.credited}")
+    private lateinit var amountCreditedQueue: String
+
+    @Value("\${routing.amount.credited}")
+    private lateinit var amountCreditedRoutingKey: String
+
+    @Value("\${exchange.amount.between.accounts.transfered}")
+    private lateinit var amountBetweenAccountsTransferedExchange: String
+
+    @Value("\${queue.amount.between.accounts.transfered}")
+    private lateinit var amountBetweenAccountsTransferedQueue: String
+
+    @Value("\${routing.amount.between.accounts.transfered}")
+    private lateinit var amountBetweenAccountsTransferedKey: String
+
     @Bean
     fun accountCreatedQueue(): Queue {
         return Queue(accountCreatedQueue)
@@ -37,11 +55,47 @@ class RabbitMQConfig {
     }
 
     @Bean
+    fun amountCreditedQueue(): Queue {
+        return Queue(amountCreditedQueue)
+    }
+
+    @Bean
+    fun amountCreditedExchange(): DirectExchange {
+        return DirectExchange(amountCreditedExchange)
+    }
+
+    @Bean
+    fun amountBetweenAccountsTransferedQueue(): Queue {
+        return Queue(amountBetweenAccountsTransferedQueue)
+    }
+
+    @Bean
+    fun amountBetweenAccountsTransferedExchange(): DirectExchange {
+        return DirectExchange(amountBetweenAccountsTransferedExchange)
+    }
+
+    @Bean
     fun accountCreatedBinding(): Binding {
         return BindingBuilder
             .bind(accountCreatedQueue())
             .to(accountCreatedExchange())
             .with(accountCreatedRoutingKey)
+    }
+
+    @Bean
+    fun amountCreditedBinding(): Binding {
+        return BindingBuilder
+            .bind(amountCreditedQueue())
+            .to(amountCreditedExchange())
+            .with(amountCreditedRoutingKey)
+    }
+
+    @Bean
+    fun amountBetweenAccountsTransferedBinding(): Binding {
+        return BindingBuilder
+            .bind(amountBetweenAccountsTransferedQueue())
+            .to(amountBetweenAccountsTransferedExchange())
+            .with(amountBetweenAccountsTransferedKey)
     }
 
     @Bean
