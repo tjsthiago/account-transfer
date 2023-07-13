@@ -4,6 +4,7 @@ import com.account.transfer.application.messaging.AmountBetweenAccountsTransfere
 import com.account.transfer.domain.events.AmountBetweenAccountsTransferedEvent
 import com.account.transfer.domain.entities.AccountAmountTransferService
 import com.account.transfer.application.repository.AccountPersistencePort
+import com.account.transfer.domain.entities.Account
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -16,18 +17,39 @@ class TransferAmountBetweenAccounts(
     val accountAmountTransferService = AccountAmountTransferService()
 
     fun execute(input: TransferAmountInput): TransferAmountOutput {
-        val from = this.accountPersistencePort.findByAccountId(input.from)
-        val to = this.accountPersistencePort.findByAccountId(input.to)
+        val from = getAccountOrThrowExceptionIfNotFound(input.from)
+        val to = getAccountOrThrowExceptionIfNotFound(input.to)
 
+        transferAmount(from, to, input)
+
+        updateAccount(from)
+        updateAccount(to)
+
+        publicTransferAmountBetweenAccountsEvent(input)
+
+        return TransferAmountOutput(true)
+    }
+
+    private fun updateAccount(from: Account) {
+        accountPersistencePort.update(from)
+    }
+
+    private fun transferAmount(
+        from: Account,
+        to: Account,
+        input: TransferAmountInput
+    ) {
         accountAmountTransferService.transfer(
             from,
             to,
             input.amount
         )
+    }
 
-        accountPersistencePort.update(from)
-        accountPersistencePort.update(to)
+    private fun getAccountOrThrowExceptionIfNotFound(accountId: Long) =
+        this.accountPersistencePort.findByAccountId(accountId)
 
+    private fun publicTransferAmountBetweenAccountsEvent(input: TransferAmountInput) {
         amountBetweenAccountsTransferedMessagePort.send(
             AmountBetweenAccountsTransferedEvent(
                 input.from,
@@ -36,8 +58,7 @@ class TransferAmountBetweenAccounts(
                 Date()
             )
         )
-
-        return TransferAmountOutput(true)
     }
+
 
 }
