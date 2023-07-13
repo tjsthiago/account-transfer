@@ -1,4 +1,4 @@
-package com.account.transfer.application.usecase.create
+package com.account.transfer.application.usecase.account.create
 
 import com.account.transfer.application.messaging.AccountCreatedMessagePort
 import com.account.transfer.domain.events.AccountCreatedEvent

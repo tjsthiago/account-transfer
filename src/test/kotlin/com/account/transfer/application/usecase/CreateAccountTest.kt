@@ -2,8 +2,8 @@ package com.account.transfer.application.usecase
 
 import com.account.transfer.application.messaging.AccountCreatedMessagePort
 import com.account.transfer.application.repository.AccountPersistencePort
-import com.account.transfer.application.usecase.create.CreateAccount
-import com.account.transfer.application.usecase.create.CreateAccountInput
+import com.account.transfer.application.usecase.account.create.CreateAccount
+import com.account.transfer.application.usecase.account.create.CreateAccountInput
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach

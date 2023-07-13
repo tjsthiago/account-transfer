@@ -1,7 +1,7 @@
 package com.account.transfer.infra.driver.messaging
 
-import com.account.transfer.application.usecase.create.CreateAccount
-import com.account.transfer.application.usecase.create.CreateAccountInput
+import com.account.transfer.application.usecase.account.create.CreateAccount
+import com.account.transfer.application.usecase.account.create.CreateAccountInput
 import org.springframework.amqp.rabbit.annotation.RabbitListener
 import org.springframework.stereotype.Component
 

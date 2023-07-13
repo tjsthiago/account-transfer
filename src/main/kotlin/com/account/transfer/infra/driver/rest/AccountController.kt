@@ -4,8 +4,8 @@ import com.account.transfer.application.usecase.ammount.credit.CreditAmount
 import com.account.transfer.application.usecase.ammount.credit.CreditAmountInput
 import com.account.transfer.application.usecase.ammount.transfer.TransferAmountBetweenAccounts
 import com.account.transfer.application.usecase.ammount.transfer.TransferAmountInput
-import com.account.transfer.application.usecase.create.CreateAccount
-import com.account.transfer.application.usecase.create.CreateAccountInput
+import com.account.transfer.application.usecase.account.create.CreateAccount
+import com.account.transfer.application.usecase.account.create.CreateAccountInput
 import com.account.transfer.infra.driver.rest.request.CreateAccountRequest
 import com.account.transfer.infra.driver.rest.request.CreditAmountRequest
 import com.account.transfer.infra.driver.rest.request.TransferAmountRequest

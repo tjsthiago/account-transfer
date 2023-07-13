@@ -16,15 +16,15 @@ class AccountCreatedMessageRabbitAdapter (
 ) : AccountCreatedMessagePort {
 
     @Value("\${exchange.account.created}")
-    private val accountCreatedExchange: String? = null
+    private lateinit var accountCreatedExchange: String
 
     @Value("\${routing.key.account.created}")
-    private val accountCreatedRoutingJsonKey: String? = null
+    private lateinit var accountCreatedRoutingJsonKey: String
 
     override fun send(event: AccountCreatedEvent) {
         rabbitTemplate.convertAndSend(
-            accountCreatedExchange!!,
-            accountCreatedRoutingJsonKey!!,
+            accountCreatedExchange,
+            accountCreatedRoutingJsonKey,
             event
         )
     }
