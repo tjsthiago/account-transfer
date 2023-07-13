@@ -1,5 +1,7 @@
 package com.account.transfer.domain.entities
 
+import com.account.transfer.domain.exceptions.InsufficientBalanceException
+
 class Account(
     private val accountId: Long,
 ) {

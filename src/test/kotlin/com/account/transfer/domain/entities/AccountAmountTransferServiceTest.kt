@@ -1,5 +1,6 @@
 package com.account.transfer.domain.entities
 
+import com.account.transfer.domain.exceptions.InsufficientBalanceException
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
