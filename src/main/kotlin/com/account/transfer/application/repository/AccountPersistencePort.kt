@@ -2,7 +2,7 @@ package com.account.transfer.application.repository
 
 import com.account.transfer.domain.entities.Account
 
-interface AccountPersistencePort {
+ interface AccountPersistencePort {
 
     fun findByAccountId(id: Long): Account
 

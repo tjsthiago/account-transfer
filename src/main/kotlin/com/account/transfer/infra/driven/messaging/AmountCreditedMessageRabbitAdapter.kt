@@ -23,8 +23,8 @@ class AmountCreditedMessageRabbitAdapter (
 
     override fun send(event: AmountCreditedEvent) {
         rabbitTemplate.convertAndSend(
-            amountCreditedExchange!!,
-            amountCreditedRoutingKey!!,
+            amountCreditedExchange,
+            amountCreditedRoutingKey,
             event
         )
     }

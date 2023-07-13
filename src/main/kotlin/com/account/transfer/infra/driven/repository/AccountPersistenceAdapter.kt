@@ -19,7 +19,7 @@ class AccountPersistenceAdapter (
         )
     }
 
-    fun findAccountEntityByAccountId(accontId: Long): AccountEntity{
+    private fun findAccountEntityByAccountId(accontId: Long): AccountEntity {
         val persisted = accountRepository.findByAccountId(accontId)
 
         if(persisted.isPresent)
