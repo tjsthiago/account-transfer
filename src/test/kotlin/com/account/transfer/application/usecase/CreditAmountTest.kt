@@ -1,5 +1,7 @@
 package com.account.transfer.application.usecase
 
+import com.account.transfer.application.messaging.AccountCreatedMessagePort
+import com.account.transfer.application.messaging.AmountCreditedMessagePort
 import com.account.transfer.application.repository.AccountPersistencePort
 import com.account.transfer.application.usecase.ammount.credit.CreditAmount
 import com.account.transfer.application.usecase.ammount.credit.CreditAmountInput
@@ -19,10 +21,25 @@ class CreditAmountTest {
     @Qualifier("AccountInMemoryPersistenceAdapter")
     private lateinit var accountPersistencePort: AccountPersistencePort
 
+    @Autowired
+    @Qualifier("AccountCreatedMessageMockAdapter")
+    private lateinit var accountCreatedMessagePort: AccountCreatedMessagePort
+
+    @Autowired
+    @Qualifier("AmountCreditedMessageMockAdapter")
+    private lateinit var amountCreditedMessagePort: AmountCreditedMessagePort
+
     @Test
     fun `should credit an account`() {
-        val createAccount = CreateAccount(accountPersistencePort)
-        val creditAmount = CreditAmount(accountPersistencePort)
+        val createAccount = CreateAccount(
+            accountPersistencePort,
+            accountCreatedMessagePort
+        )
+
+        val creditAmount = CreditAmount(
+            accountPersistencePort,
+            amountCreditedMessagePort
+        )
 
         val amountToCredit = 50.0
         val accountId = 987654L
@@ -30,7 +47,7 @@ class CreditAmountTest {
         val createAccountInput = CreateAccountInput(accountId)
         val createAccountOutput = createAccount.execute(createAccountInput)
 
-        val creditAmountInput = CreditAmountInput(accountId, 50.0)
+        val creditAmountInput = CreditAmountInput(accountId, amountToCredit)
         val creditAmountOutput = creditAmount.execute(creditAmountInput)
 
         val creditedAccount = accountPersistencePort.findByAccountId(accountId)

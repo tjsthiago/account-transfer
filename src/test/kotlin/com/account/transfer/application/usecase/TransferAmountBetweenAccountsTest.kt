@@ -1,5 +1,6 @@
 package com.account.transfer.application.usecase
 
+import com.account.transfer.application.messaging.AmountBetweenAccountsTransferedMessagePort
 import com.account.transfer.application.repository.AccountPersistencePort
 import com.account.transfer.application.usecase.ammount.transfer.TransferAmountBetweenAccounts
 import com.account.transfer.application.usecase.ammount.transfer.TransferAmountInput
@@ -19,6 +20,10 @@ class TransferAmountBetweenAccountsTest {
     @Qualifier("AccountInMemoryPersistenceAdapter")
     private lateinit var accountPersistencePort: AccountPersistencePort
 
+    @Autowired
+    @Qualifier("AmountBetweenAccountsTransferedMessageMockAdapter")
+    private lateinit var amountBetweenAccountsTransferedMessagePort: AmountBetweenAccountsTransferedMessagePort
+
     @BeforeEach
     fun before() {
         accountPersistencePort.deleteAll()
@@ -26,8 +31,9 @@ class TransferAmountBetweenAccountsTest {
 
     @Test
     fun `should transfer amount between two accounts`() {
-        val transferUseCase = TransferAmountBetweenAccounts(
-            accountPersistencePort
+        val transferAmountBetweenAccounts = TransferAmountBetweenAccounts(
+            accountPersistencePort,
+            amountBetweenAccountsTransferedMessagePort
         )
 
         val accountIdFrom = 987654L
@@ -49,7 +55,7 @@ class TransferAmountBetweenAccountsTest {
             amount
         )
 
-        val output = transferUseCase.execute(input)
+        val output = transferAmountBetweenAccounts.execute(input)
 
         val fromAccontAfterTransfer = accountPersistencePort.findByAccountId(accountIdFrom)
         val toAccontAfterTransfer = accountPersistencePort.findByAccountId(accountIdTo)

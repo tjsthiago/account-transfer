@@ -1,4 +1,4 @@
-package com.account.transfer.infra.driver.queue
+package com.account.transfer.infra.driver.messaging
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

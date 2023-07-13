@@ -1,5 +1,6 @@
 package com.account.transfer.application.usecase
 
+import com.account.transfer.application.messaging.AccountCreatedMessagePort
 import com.account.transfer.application.repository.AccountPersistencePort
 import com.account.transfer.application.usecase.create.CreateAccount
 import com.account.transfer.application.usecase.create.CreateAccountInput
@@ -18,6 +19,10 @@ class CreateAccountTest {
     @Qualifier("AccountInMemoryPersistenceAdapter")
     private lateinit var accountPersistencePort: AccountPersistencePort
 
+    @Autowired
+    @Qualifier("AccountCreatedMessageMockAdapter")
+    private lateinit var accountCreatedMessageMockAdapter: AccountCreatedMessagePort
+
     @BeforeEach
     fun before() {
         accountPersistencePort.deleteAll()
@@ -25,7 +30,10 @@ class CreateAccountTest {
 
     @Test
     fun `should create a new account`() {
-        val createAccount = CreateAccount(accountPersistencePort)
+        val createAccount = CreateAccount(
+            accountPersistencePort,
+            accountCreatedMessageMockAdapter
+        )
 
         val initialAccountBalance = 00.0
         val accountId = 987654L
