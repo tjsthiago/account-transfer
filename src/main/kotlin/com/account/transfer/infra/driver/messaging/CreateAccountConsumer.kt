@@ -10,7 +10,7 @@ class CreateAccountConsumer(
     private val createAccount: CreateAccount
 ) {
 
-    @RabbitListener(queues = ["\${create-account}"], ackMode = "AUTO")
+    @RabbitListener(queues = ["\${queue.create.account}"], ackMode = "AUTO")
     fun creetaAccount(input: CreateAccountInputMessage) {
         createAccount.execute(CreateAccountInput(input.accountId))
     }
