@@ -1,7 +1,7 @@
 package com.account.transfer.application.usecase.ammount.credit
 
 import com.account.transfer.application.messaging.AmountCreditedMessagePort
-import com.account.transfer.application.messaging.events.AmountCreditedEvent
+import com.account.transfer.domain.events.AmountCreditedEvent
 import com.account.transfer.application.repository.AccountPersistencePort
 import org.springframework.stereotype.Component
 import java.util.*

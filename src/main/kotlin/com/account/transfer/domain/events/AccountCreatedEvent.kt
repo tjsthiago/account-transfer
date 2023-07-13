@@ -1,4 +1,4 @@
-package com.account.transfer.application.messaging.events
+package com.account.transfer.domain.events
 
 import java.util.Date
 

@@ -1,8 +1,8 @@
-package com.account.transfer.infra.driver.rest
+package com.account.transfer.infra.driver.rest.response
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class TransferAmountResponse (
+data class CreateAccountResponse (
     @JsonProperty("success")
     val success: Boolean
 )

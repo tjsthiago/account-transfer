@@ -1,7 +1,7 @@
 package com.account.transfer.application.usecase.create
 
 import com.account.transfer.application.messaging.AccountCreatedMessagePort
-import com.account.transfer.application.messaging.events.AccountCreatedEvent
+import com.account.transfer.domain.events.AccountCreatedEvent
 import com.account.transfer.application.repository.AccountPersistencePort
 import com.account.transfer.domain.entities.Account
 import org.springframework.stereotype.Component

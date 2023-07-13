@@ -1,7 +1,7 @@
 package com.account.transfer.application.usecase.ammount.transfer
 
 import com.account.transfer.application.messaging.AmountBetweenAccountsTransferedMessagePort
-import com.account.transfer.application.messaging.events.AmountBetweenAccountsTransferedEvent
+import com.account.transfer.domain.events.AmountBetweenAccountsTransferedEvent
 import com.account.transfer.domain.entities.AccountAmountTransferService
 import com.account.transfer.application.repository.AccountPersistencePort
 import org.springframework.stereotype.Component

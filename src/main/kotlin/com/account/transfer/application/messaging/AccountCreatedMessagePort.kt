@@ -1,6 +1,6 @@
 package com.account.transfer.application.messaging
 
-import com.account.transfer.application.messaging.events.AccountCreatedEvent
+import com.account.transfer.domain.events.AccountCreatedEvent
 
 interface AccountCreatedMessagePort {
     fun send(event: AccountCreatedEvent)

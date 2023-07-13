@@ -6,6 +6,12 @@ import com.account.transfer.application.usecase.ammount.transfer.TransferAmountB
 import com.account.transfer.application.usecase.ammount.transfer.TransferAmountInput
 import com.account.transfer.application.usecase.create.CreateAccount
 import com.account.transfer.application.usecase.create.CreateAccountInput
+import com.account.transfer.infra.driver.rest.request.CreateAccountRequest
+import com.account.transfer.infra.driver.rest.request.CreditAmountRequest
+import com.account.transfer.infra.driver.rest.request.TransferAmountRequest
+import com.account.transfer.infra.driver.rest.response.CreateAccountResponse
+import com.account.transfer.infra.driver.rest.response.CreditAmountResponse
+import com.account.transfer.infra.driver.rest.response.TransferAmountResponse
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
