@@ -1,8 +1,8 @@
 package com.account.transfer.infra.driver.messaging
 
 import com.account.transfer.application.usecase.ammount.transfer.TransferAmountBetweenAccounts
-import com.account.transfer.application.usecase.ammount.transfer.TransferAmountInput
-import com.account.transfer.infra.driver.messaging.input.TransferAmountInputMessage
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.account.transfer.application.usecase.ammount.transfer.Input as TransferAmountInput
 import org.springframework.amqp.rabbit.annotation.RabbitListener
 import org.springframework.stereotype.Component
 
@@ -23,3 +23,14 @@ class TransferAmountBetweenAccountsConsumer (
     }
 
 }
+
+class TransferAmountInputMessage (
+    @JsonProperty("from")
+    val from: Long,
+
+    @JsonProperty("to")
+    val to: Long,
+
+    @JsonProperty("amount")
+    val amount: Double
+)

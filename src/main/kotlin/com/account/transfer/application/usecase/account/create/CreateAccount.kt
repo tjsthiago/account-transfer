@@ -13,20 +13,20 @@ class CreateAccount (
     private val accountCreatedMessagePort: AccountCreatedMessagePort
 ) {
 
-    fun execute(input: CreateAccountInput): CreateAccountOutput {
+    fun execute(input: Input): Output {
         val account = Account(input.accountId)
 
         persistCreatedAccount(account)
         publicAccountCreatedEvent(input)
 
-        return CreateAccountOutput(true)
+        return Output(true)
     }
 
     private fun persistCreatedAccount(account: Account) {
         accountPersistencePort.save(account)
     }
 
-    private fun publicAccountCreatedEvent(input: CreateAccountInput) {
+    private fun publicAccountCreatedEvent(input: Input) {
         accountCreatedMessagePort.send(
             AccountCreatedEvent(
                 input.accountId,
@@ -37,3 +37,11 @@ class CreateAccount (
     }
 
 }
+
+class Input (
+    val accountId: Long
+)
+
+class Output (
+    val success: Boolean
+)

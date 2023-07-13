@@ -3,7 +3,7 @@ package com.account.transfer.application.usecase
 import com.account.transfer.application.messaging.AmountBetweenAccountsTransferedMessagePort
 import com.account.transfer.application.repository.AccountPersistencePort
 import com.account.transfer.application.usecase.ammount.transfer.TransferAmountBetweenAccounts
-import com.account.transfer.application.usecase.ammount.transfer.TransferAmountInput
+import com.account.transfer.application.usecase.ammount.transfer.Input as TransferAmountInput
 import com.account.transfer.domain.entities.Account
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue

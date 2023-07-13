@@ -13,16 +13,16 @@ class CreditAmount(
     private val amountCreditedMessagePort: AmountCreditedMessagePort
 ) {
 
-    fun execute(input: CreditAmountInput): CreditAmountOutput {
+    fun execute(input: Input): Output {
         val account = getAccountToCreditOrThrowExceptionIfNotFound(input)
         account.credit(input.amount)
         updateCreditedAccount(account)
         publicAccountCreditedEvent(input)
 
-        return CreditAmountOutput(true)
+        return Output(true)
     }
 
-    private fun publicAccountCreditedEvent(input: CreditAmountInput) {
+    private fun publicAccountCreditedEvent(input: Input) {
         amountCreditedMessagePort.send(
             AmountCreditedEvent(
                 input.accountId,
@@ -36,9 +36,18 @@ class CreditAmount(
         accountPersistencePort.update(account)
     }
 
-    private fun getAccountToCreditOrThrowExceptionIfNotFound(input: CreditAmountInput) =
+    private fun getAccountToCreditOrThrowExceptionIfNotFound(input: Input) =
         accountPersistencePort.findByAccountId(
             input.accountId
         )
 
 }
+
+class Input (
+    val accountId: Long,
+    val amount: Double
+)
+
+class Output (
+    val success: Boolean
+)

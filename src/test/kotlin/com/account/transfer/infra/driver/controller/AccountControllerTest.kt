@@ -1,8 +1,8 @@
 package com.account.transfer.infra.driver.controller
 
-import com.account.transfer.application.usecase.ammount.credit.CreditAmountInput
 import com.account.transfer.infra.driver.rest.request.CreateAccountRequest
 import com.account.transfer.infra.driver.rest.request.TransferAmountRequest
+import com.account.transfer.application.usecase.ammount.credit.Input as CreditAmountInput
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

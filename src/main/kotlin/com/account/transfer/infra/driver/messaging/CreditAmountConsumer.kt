@@ -1,8 +1,8 @@
 package com.account.transfer.infra.driver.messaging
 
 import com.account.transfer.application.usecase.ammount.credit.CreditAmount
-import com.account.transfer.application.usecase.ammount.credit.CreditAmountInput
-import com.account.transfer.infra.driver.messaging.input.CreditAmountInputMessage
+import com.account.transfer.application.usecase.ammount.credit.Input as CreditAmountInput
+import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.amqp.rabbit.annotation.RabbitListener
 import org.springframework.stereotype.Component
 
@@ -22,3 +22,11 @@ class CreditAmountConsumer (
     }
 
 }
+
+class CreditAmountInputMessage (
+    @JsonProperty("accountId")
+    val accountId: Long,
+
+    @JsonProperty("amount")
+    val amount: Double
+)

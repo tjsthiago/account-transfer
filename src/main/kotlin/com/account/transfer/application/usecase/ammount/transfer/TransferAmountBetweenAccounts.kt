@@ -16,7 +16,7 @@ class TransferAmountBetweenAccounts(
 
     val accountAmountTransferService = AccountAmountTransferService()
 
-    fun execute(input: TransferAmountInput): TransferAmountOutput {
+    fun execute(input: Input): Output {
         val from = getAccountOrThrowExceptionIfNotFound(input.from)
         val to = getAccountOrThrowExceptionIfNotFound(input.to)
 
@@ -27,7 +27,7 @@ class TransferAmountBetweenAccounts(
 
         publicTransferAmountBetweenAccountsEvent(input)
 
-        return TransferAmountOutput(true)
+        return Output(true)
     }
 
     private fun updateAccount(from: Account) {
@@ -37,7 +37,7 @@ class TransferAmountBetweenAccounts(
     private fun transferAmount(
         from: Account,
         to: Account,
-        input: TransferAmountInput
+        input: Input
     ) {
         accountAmountTransferService.transfer(
             from,
@@ -49,7 +49,7 @@ class TransferAmountBetweenAccounts(
     private fun getAccountOrThrowExceptionIfNotFound(accountId: Long) =
         this.accountPersistencePort.findByAccountId(accountId)
 
-    private fun publicTransferAmountBetweenAccountsEvent(input: TransferAmountInput) {
+    private fun publicTransferAmountBetweenAccountsEvent(input: Input) {
         amountBetweenAccountsTransferedMessagePort.send(
             AmountBetweenAccountsTransferedEvent(
                 input.from,
@@ -60,5 +60,14 @@ class TransferAmountBetweenAccounts(
         )
     }
 
-
 }
+
+class Input (
+    val from: Long,
+    val to: Long,
+    val amount: Double
+)
+
+class Output(
+    val success: Boolean
+)

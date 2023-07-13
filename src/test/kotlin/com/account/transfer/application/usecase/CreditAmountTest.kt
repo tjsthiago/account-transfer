@@ -4,9 +4,9 @@ import com.account.transfer.application.messaging.AccountCreatedMessagePort
 import com.account.transfer.application.messaging.AmountCreditedMessagePort
 import com.account.transfer.application.repository.AccountPersistencePort
 import com.account.transfer.application.usecase.ammount.credit.CreditAmount
-import com.account.transfer.application.usecase.ammount.credit.CreditAmountInput
 import com.account.transfer.application.usecase.account.create.CreateAccount
-import com.account.transfer.application.usecase.account.create.CreateAccountInput
+import com.account.transfer.application.usecase.account.create.Input as CreateAccountInput
+import com.account.transfer.application.usecase.ammount.credit.Input as CreditAmountInput
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
