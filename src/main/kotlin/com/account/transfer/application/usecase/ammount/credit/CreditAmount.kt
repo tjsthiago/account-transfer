@@ -26,7 +26,7 @@ class CreditAmount(
         amountCreditedMessagePort.send(
             AmountCreditedEvent(
                 input.accountId,
-                "${input.amount} amount cretited to account ${input.accountId}",
+                "${input.amount} amount credited to account ${input.accountId}",
                 Date()
             )
         )

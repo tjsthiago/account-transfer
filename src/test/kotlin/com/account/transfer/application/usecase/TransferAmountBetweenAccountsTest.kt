@@ -57,11 +57,11 @@ class TransferAmountBetweenAccountsTest {
 
         val output = transferAmountBetweenAccounts.execute(input)
 
-        val fromAccontAfterTransfer = accountPersistencePort.findByAccountId(accountIdFrom)
-        val toAccontAfterTransfer = accountPersistencePort.findByAccountId(accountIdTo)
+        val fromAccountAfterTransfer = accountPersistencePort.findByAccountId(accountIdFrom)
+        val toAccountAfterTransfer = accountPersistencePort.findByAccountId(accountIdTo)
 
         assertTrue(output.success)
-        assertEquals(50.0, fromAccontAfterTransfer.balance)
-        assertEquals(50.0, toAccontAfterTransfer.balance)
+        assertEquals(50.0, fromAccountAfterTransfer.balance)
+        assertEquals(50.0, toAccountAfterTransfer.balance)
     }
 }

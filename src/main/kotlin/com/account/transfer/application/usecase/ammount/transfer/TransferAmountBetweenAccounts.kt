@@ -11,7 +11,7 @@ import java.util.*
 @Component
 class TransferAmountBetweenAccounts(
     private val accountPersistencePort: AccountPersistencePort,
-    private val amountBetweenAccountsTransferedMessagePort: AmountBetweenAccountsTransferedMessagePort
+    private val amountBetweenAccountsTransferredMessagePort: AmountBetweenAccountsTransferedMessagePort
 ) {
 
     val accountAmountTransferService = AccountAmountTransferService()
@@ -30,8 +30,8 @@ class TransferAmountBetweenAccounts(
         return Output(true)
     }
 
-    private fun updateAccount(from: Account) {
-        accountPersistencePort.update(from)
+    private fun updateAccount(account: Account) {
+        accountPersistencePort.update(account)
     }
 
     private fun transferAmount(
@@ -50,7 +50,7 @@ class TransferAmountBetweenAccounts(
         this.accountPersistencePort.findByAccountId(accountId)
 
     private fun publicTransferAmountBetweenAccountsEvent(input: Input) {
-        amountBetweenAccountsTransferedMessagePort.send(
+        amountBetweenAccountsTransferredMessagePort.send(
             AmountBetweenAccountsTransferedEvent(
                 input.from,
                 input.to,
