@@ -2,7 +2,7 @@ package com.account.transfer.domain.events
 
 import java.util.*
 
-data class AmountBetweenAccountsTransferedEvent (
+data class AmountBetweenAccountsTransferredEvent (
     val originAccount: Long,
     val targetAccount: Long,
     val message: String,

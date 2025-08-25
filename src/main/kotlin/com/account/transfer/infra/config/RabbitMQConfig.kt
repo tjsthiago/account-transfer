@@ -35,14 +35,14 @@ class RabbitMQConfig {
     @Value("\${routing.amount.credited}")
     private lateinit var amountCreditedRoutingKey: String
 
-    @Value("\${exchange.amount.between.accounts.transfered}")
-    private lateinit var amountBetweenAccountsTransferedExchange: String
+    @Value("\${exchange.amount.between.accounts.transferred}")
+    private lateinit var amountBetweenAccountsTransferredExchange: String
 
-    @Value("\${queue.amount.between.accounts.transfered}")
-    private lateinit var amountBetweenAccountsTransferedQueue: String
+    @Value("\${queue.amount.between.accounts.transferred}")
+    private lateinit var amountBetweenAccountsTransferredQueue: String
 
-    @Value("\${routing.amount.between.accounts.transfered}")
-    private lateinit var amountBetweenAccountsTransferedKey: String
+    @Value("\${routing.amount.between.accounts.transferred}")
+    private lateinit var amountBetweenAccountsTransferredKey: String
 
     @Bean
     fun accountCreatedQueue(): Queue {
@@ -65,13 +65,13 @@ class RabbitMQConfig {
     }
 
     @Bean
-    fun amountBetweenAccountsTransferedQueue(): Queue {
-        return Queue(amountBetweenAccountsTransferedQueue)
+    fun amountBetweenAccountsTransferredQueue(): Queue {
+        return Queue(amountBetweenAccountsTransferredQueue)
     }
 
     @Bean
-    fun amountBetweenAccountsTransferedExchange(): DirectExchange {
-        return DirectExchange(amountBetweenAccountsTransferedExchange)
+    fun amountBetweenAccountsTransferredExchange(): DirectExchange {
+        return DirectExchange(amountBetweenAccountsTransferredExchange)
     }
 
     @Bean
@@ -91,11 +91,11 @@ class RabbitMQConfig {
     }
 
     @Bean
-    fun amountBetweenAccountsTransferedBinding(): Binding {
+    fun amountBetweenAccountsTransferredBinding(): Binding {
         return BindingBuilder
-            .bind(amountBetweenAccountsTransferedQueue())
-            .to(amountBetweenAccountsTransferedExchange())
-            .with(amountBetweenAccountsTransferedKey)
+            .bind(amountBetweenAccountsTransferredQueue())
+            .to(amountBetweenAccountsTransferredExchange())
+            .with(amountBetweenAccountsTransferredKey)
     }
 
     @Bean

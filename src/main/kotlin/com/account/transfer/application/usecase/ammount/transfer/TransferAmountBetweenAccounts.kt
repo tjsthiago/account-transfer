@@ -1,7 +1,7 @@
 package com.account.transfer.application.usecase.ammount.transfer
 
 import com.account.transfer.application.messaging.AmountBetweenAccountsTransferredMessagePort
-import com.account.transfer.domain.events.AmountBetweenAccountsTransferedEvent
+import com.account.transfer.domain.events.AmountBetweenAccountsTransferredEvent
 import com.account.transfer.domain.entities.AccountAmountTransferService
 import com.account.transfer.application.repository.AccountPersistencePort
 import com.account.transfer.domain.entities.Account
@@ -51,10 +51,10 @@ class TransferAmountBetweenAccounts(
 
     private fun publicTransferAmountBetweenAccountsEvent(input: Input) {
         amountBetweenAccountsTransferredMessagePort.send(
-            AmountBetweenAccountsTransferedEvent(
+            AmountBetweenAccountsTransferredEvent(
                 input.from,
                 input.to,
-                "${input.amount} transfered from ${input.from} to ${input.to} account",
+                "${input.amount} transferred from ${input.from} to ${input.to} account",
                 Date()
             )
         )
