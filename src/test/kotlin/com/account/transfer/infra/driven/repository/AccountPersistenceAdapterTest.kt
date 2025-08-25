@@ -13,7 +13,7 @@ import kotlin.random.Random
 class AccountPersistenceAdapterTest {
 
     @Autowired
-    @Qualifier("AccountPersistenceAdapter")
+    @Qualifier("AccountInMemoryPersistenceAdapter")
     private lateinit var accountPersistencePort: AccountPersistencePort
 
     @Test
