@@ -1,6 +1,6 @@
 package com.account.transfer.application.usecase
 
-import com.account.transfer.application.messaging.AmountBetweenAccountsTransferedMessagePort
+import com.account.transfer.application.messaging.AmountBetweenAccountsTransferredMessagePort
 import com.account.transfer.application.repository.AccountPersistencePort
 import com.account.transfer.application.usecase.ammount.transfer.TransferAmountBetweenAccounts
 import com.account.transfer.application.usecase.ammount.transfer.Input as TransferAmountInput
@@ -21,8 +21,8 @@ class TransferAmountBetweenAccountsTest {
     private lateinit var accountPersistencePort: AccountPersistencePort
 
     @Autowired
-    @Qualifier("AmountBetweenAccountsTransferedMessageMockAdapter")
-    private lateinit var amountBetweenAccountsTransferedMessagePort: AmountBetweenAccountsTransferedMessagePort
+    @Qualifier("AmountBetweenAccountsTransferredMessageMockAdapter")
+    private lateinit var amountBetweenAccountsTransferredMessagePort: AmountBetweenAccountsTransferredMessagePort
 
     @BeforeEach
     fun before() {
@@ -33,7 +33,7 @@ class TransferAmountBetweenAccountsTest {
     fun `should transfer amount between two accounts`() {
         val transferAmountBetweenAccounts = TransferAmountBetweenAccounts(
             accountPersistencePort,
-            amountBetweenAccountsTransferedMessagePort
+            amountBetweenAccountsTransferredMessagePort
         )
 
         val accountIdFrom = 987654L

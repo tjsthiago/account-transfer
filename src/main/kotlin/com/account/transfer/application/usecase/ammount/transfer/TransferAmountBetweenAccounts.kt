@@ -1,6 +1,6 @@
 package com.account.transfer.application.usecase.ammount.transfer
 
-import com.account.transfer.application.messaging.AmountBetweenAccountsTransferedMessagePort
+import com.account.transfer.application.messaging.AmountBetweenAccountsTransferredMessagePort
 import com.account.transfer.domain.events.AmountBetweenAccountsTransferedEvent
 import com.account.transfer.domain.entities.AccountAmountTransferService
 import com.account.transfer.application.repository.AccountPersistencePort
@@ -11,7 +11,7 @@ import java.util.*
 @Component
 class TransferAmountBetweenAccounts(
     private val accountPersistencePort: AccountPersistencePort,
-    private val amountBetweenAccountsTransferredMessagePort: AmountBetweenAccountsTransferedMessagePort
+    private val amountBetweenAccountsTransferredMessagePort: AmountBetweenAccountsTransferredMessagePort
 ) {
 
     val accountAmountTransferService = AccountAmountTransferService()

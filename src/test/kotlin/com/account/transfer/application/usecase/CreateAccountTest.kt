@@ -16,7 +16,8 @@ import org.springframework.boot.test.context.SpringBootTest
 class CreateAccountTest {
 
     @Autowired
-    @Qualifier("AccountInMemoryPersistenceAdapter")
+    //@Qualifier("AccountInMemoryPersistenceAdapter")
+    @Qualifier("AccountPersistenceAdapter")
     private lateinit var accountPersistencePort: AccountPersistencePort
 
     @Autowired
