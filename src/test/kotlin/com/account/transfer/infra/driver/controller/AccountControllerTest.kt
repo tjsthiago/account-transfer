@@ -64,6 +64,8 @@ class AccountControllerTest @Autowired constructor(
             amountToTransfer
         )
 
+        val expectedMessage = "Amount ${transferAmountRequest.amount} transferred from account ${transferAmountRequest.from} to account ${transferAmountRequest.to}"
+
         mockMvc
             .post("$baseUrl/transfer") {
                 contentType = MediaType.APPLICATION_JSON
@@ -71,13 +73,16 @@ class AccountControllerTest @Autowired constructor(
             }
             .andDo { print() }
             .andExpect {
-                status { isCreated() }
+                status { isOk() }
                 content { contentType(MediaType.APPLICATION_JSON) }
                 jsonPath("$.success") { value("true") }
+                jsonPath("$.message") { value(expectedMessage) }
             }
     }
 
     private fun createAccount(request: CreateAccountRequest) {
+        val expectedMessage = "Account created successfully with accountId: ${request.accountId}"
+
         mockMvc
             .post(baseUrl) {
                 contentType = MediaType.APPLICATION_JSON
@@ -88,6 +93,7 @@ class AccountControllerTest @Autowired constructor(
                 status { isCreated() }
                 content { contentType(MediaType.APPLICATION_JSON) }
                 jsonPath("$.success") { value("true") }
+                jsonPath("$.message") { value(expectedMessage) }
             }
     }
 
@@ -96,6 +102,8 @@ class AccountControllerTest @Autowired constructor(
         creditAmountInput: CreditAmountInput
     ) {
         val creditUrl = "$baseUrl/$accountId"
+
+        val expectedMessage = "Account $accountId credited with amount ${creditAmountInput.amount}"
 
         mockMvc
             .patch(creditUrl) {
@@ -107,6 +115,7 @@ class AccountControllerTest @Autowired constructor(
                 status { isOk() }
                 content { contentType(MediaType.APPLICATION_JSON) }
                 jsonPath("$.success") { value("true") }
+                jsonPath("$.message") { value(expectedMessage) }
             }
     }
 }

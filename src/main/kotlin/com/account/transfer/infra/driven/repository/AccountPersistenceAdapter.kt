@@ -19,13 +19,13 @@ class AccountPersistenceAdapter (
         )
     }
 
-    private fun findAccountEntityByAccountId(accontId: Long): AccountEntity {
-        val persisted = accountRepository.findByAccountId(accontId)
+    private fun findAccountEntityByAccountId(accountId: Long): AccountEntity {
+        val persisted = accountRepository.findByAccountId(accountId)
 
         if(persisted.isPresent)
             return persisted.get()
 
-        throw AccountNotFoundException("Account with id[$accontId] not found.")
+        throw AccountNotFoundException("Account with id[$accountId] not found.")
     }
 
     override fun save(account: Account) {

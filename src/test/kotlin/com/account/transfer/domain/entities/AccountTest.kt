@@ -1,5 +1,7 @@
 package com.account.transfer.domain.entities
 
+import com.account.transfer.domain.exceptions.InsufficientBalanceException
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -28,5 +30,22 @@ class AccountTest {
 
 		assertEquals(account.balance, 50.0)
 	}
+
+    @Test
+    fun `should throw exception when try to debit a value higher than the account amount`() {
+        val account = Account(987654L)
+        val initialAmount = 100.0
+        val withdrawal = 200.0
+
+        account.credit(initialAmount)
+
+        val thrown: InsufficientBalanceException = Assertions.assertThrows(
+            InsufficientBalanceException::class.java,
+            { account.debit(withdrawal) },
+            "InsufficientBalanceException was expected"
+        )
+
+        assertEquals("The account [987654] has no sufficient balance to transfer.", thrown.message)
+    }
 
 }

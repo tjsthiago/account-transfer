@@ -14,14 +14,14 @@ class Account(
         this.balance += amount
     }
 
-    fun debit(amount: Double) {
-        if(this.balance <= 0) {
+    fun debit(withdrawal: Double) {
+        if(withdrawal > this.balance) {
             throw InsufficientBalanceException(
                 "The account [$accountId] has no sufficient balance to transfer."
             )
         }
 
-        this.balance -= amount
+        this.balance -= withdrawal
     }
 
 }
