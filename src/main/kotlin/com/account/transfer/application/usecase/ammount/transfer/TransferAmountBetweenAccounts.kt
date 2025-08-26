@@ -25,7 +25,7 @@ class TransferAmountBetweenAccounts(
         updateAccount(from)
         updateAccount(to)
 
-        publicTransferAmountBetweenAccountsEvent(input)
+        publishTransferAmountBetweenAccountsEvent(input)
 
         return Output(true)
     }
@@ -49,7 +49,7 @@ class TransferAmountBetweenAccounts(
     private fun getAccountOrThrowExceptionIfNotFound(accountId: Long) =
         this.accountPersistencePort.findByAccountId(accountId)
 
-    private fun publicTransferAmountBetweenAccountsEvent(input: Input) {
+    private fun publishTransferAmountBetweenAccountsEvent(input: Input) {
         amountBetweenAccountsTransferredMessagePort.send(
             AmountBetweenAccountsTransferredEvent(
                 input.from,

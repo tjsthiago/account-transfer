@@ -17,7 +17,7 @@ class CreateAccount (
         val account = Account(input.accountId)
 
         persistCreatedAccount(account)
-        publicAccountCreatedEvent(input)
+        publishAccountCreatedEvent(input)
 
         return Output(true)
     }
@@ -26,7 +26,7 @@ class CreateAccount (
         accountPersistencePort.save(account)
     }
 
-    private fun publicAccountCreatedEvent(input: Input) {
+    private fun publishAccountCreatedEvent(input: Input) {
         accountCreatedMessagePort.send(
             AccountCreatedEvent(
                 input.accountId,

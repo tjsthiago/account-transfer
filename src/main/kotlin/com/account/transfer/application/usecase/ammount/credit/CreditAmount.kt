@@ -17,12 +17,12 @@ class CreditAmount(
         val account = getAccountToCreditOrThrowExceptionIfNotFound(input)
         account.credit(input.amount)
         updateCreditedAccount(account)
-        publicAccountCreditedEvent(input)
+        publishAccountCreditedEvent(input)
 
         return Output(true)
     }
 
-    private fun publicAccountCreditedEvent(input: Input) {
+    private fun publishAccountCreditedEvent(input: Input) {
         amountCreditedMessagePort.send(
             AmountCreditedEvent(
                 input.accountId,
