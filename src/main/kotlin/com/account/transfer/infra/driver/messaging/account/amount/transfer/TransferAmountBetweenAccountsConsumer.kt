@@ -1,8 +1,10 @@
 package com.account.transfer.infra.driver.messaging.account.amount.transfer
 
 import com.account.transfer.application.usecase.ammount.transfer.TransferAmountBetweenAccounts
+import com.rabbitmq.client.Channel
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.amqp.core.Message
 import org.springframework.amqp.rabbit.annotation.RabbitListener
 import org.springframework.stereotype.Component
 import com.account.transfer.application.usecase.ammount.transfer.Input as TransferAmountInput
@@ -13,25 +15,23 @@ class TransferAmountBetweenAccountsConsumer (
 ) {
     private val logger: Logger = LoggerFactory.getLogger(TransferAmountBetweenAccountsConsumer::class.java)
 
-    @RabbitListener(queues = ["\${queue.transfer.amount.between.accounts}"], ackMode = "AUTO")
-    fun transferAmountBetweenAccounts(input: TransferAmountInputMessage) {
+    @RabbitListener(queues = ["\${queue.transfer.amount.between.accounts}"], ackMode = "AUTO", errorHandler = "accountMessagingExceptionHandler")
+    fun transferAmountBetweenAccounts(input: TransferAmountInputMessage, message: Message, channel: Channel) {
         logger.info(
-            "Received request to transfer amount ${input.amount} from account ${input.from} to account ${input.to}"
+            "Received a request to transfer the amount of ${input.amount} from account ${input.from} to account ${input.to}"
         )
 
-        try {
-            transferAmountBetweenAccounts.execute(
-                TransferAmountInput(
-                    input.from,
-                    input.to,
-                    input.amount
-                )
+        transferAmountBetweenAccounts.execute(
+            TransferAmountInput(
+                input.from,
+                input.to,
+                input.amount
             )
-        } catch (e: Exception) {
-            logger.error(
-                "Error to transfer amount ${input.amount} from account ${input.from} to account ${input.to}: ${e.message}"
-            )
-        }
+        )
+
+        logger.info(
+            "Successfully transferred the amount of ${input.amount} from account ${input.from} to account ${input.to}"
+        )
     }
 
 }
