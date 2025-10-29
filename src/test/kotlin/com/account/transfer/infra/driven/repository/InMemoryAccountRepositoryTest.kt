@@ -74,4 +74,9 @@ class InMemoryAccountRepositoryTest {
         assertEquals(0.0, initialBallance)
         assertEquals(50.0, updated.balance)
     }
+
+    @Test
+    fun `should assert that account does not exist by accountId`() {
+        assertFalse(accountPersistencePort.existsByAccountId(8L))
+    }
 }
