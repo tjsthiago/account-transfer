@@ -1,7 +1,6 @@
-package com.account.transfer.infra.driver.messaging
+package com.account.transfer.infra.driver.messaging.account.amount.credit
 
 import com.account.transfer.application.usecase.ammount.credit.CreditAmount
-import com.account.transfer.infra.driver.messaging.input.CreditAmountInputMessage
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.amqp.rabbit.annotation.RabbitListener

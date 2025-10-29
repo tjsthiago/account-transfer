@@ -1,7 +1,7 @@
-package com.account.transfer.infra.driver.controller
+package com.account.transfer.infra.driver.account.controller
 
-import com.account.transfer.infra.driver.rest.request.CreateAccountRequest
-import com.account.transfer.infra.driver.rest.request.TransferAmountRequest
+import com.account.transfer.infra.driver.rest.account.request.CreateAccountRequest
+import com.account.transfer.infra.driver.rest.account.request.TransferAmountRequest
 import com.account.transfer.application.usecase.ammount.credit.Input as CreditAmountInput
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.Test

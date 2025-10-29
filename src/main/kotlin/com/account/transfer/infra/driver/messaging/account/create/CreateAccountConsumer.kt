@@ -1,12 +1,11 @@
-package com.account.transfer.infra.driver.messaging
+package com.account.transfer.infra.driver.messaging.account.create
 
 import com.account.transfer.application.usecase.account.create.CreateAccount
-import com.account.transfer.infra.driver.messaging.input.CreateAccountInputMessage
+import com.account.transfer.application.usecase.account.create.Input
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.amqp.rabbit.annotation.RabbitListener
 import org.springframework.stereotype.Component
-import com.account.transfer.application.usecase.account.create.Input as CreateAccountInput
 
 @Component
 class CreateAccountConsumer(
@@ -21,7 +20,7 @@ class CreateAccountConsumer(
         )
 
         try {
-            createAccount.execute(CreateAccountInput(input.accountId))
+            createAccount.execute(Input(input.accountId))
         } catch (e: Exception) {
             logger.error("Error processing create account request: ${e.message}", e)
         }

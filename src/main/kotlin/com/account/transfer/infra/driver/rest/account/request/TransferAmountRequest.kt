@@ -1,4 +1,4 @@
-package com.account.transfer.infra.driver.rest.request
+package com.account.transfer.infra.driver.rest.account.request
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

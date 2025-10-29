@@ -1,14 +1,14 @@
-package com.account.transfer.infra.driver.rest
+package com.account.transfer.infra.driver.rest.account
 
 import com.account.transfer.application.usecase.account.create.CreateAccount
 import com.account.transfer.application.usecase.ammount.credit.CreditAmount
 import com.account.transfer.application.usecase.ammount.transfer.TransferAmountBetweenAccounts
-import com.account.transfer.infra.driver.rest.request.CreateAccountRequest
-import com.account.transfer.infra.driver.rest.request.CreditAmountRequest
-import com.account.transfer.infra.driver.rest.request.TransferAmountRequest
-import com.account.transfer.infra.driver.rest.response.CreateAccountResponse
-import com.account.transfer.infra.driver.rest.response.CreditAmountResponse
-import com.account.transfer.infra.driver.rest.response.TransferAmountResponse
+import com.account.transfer.infra.driver.rest.account.request.CreateAccountRequest
+import com.account.transfer.infra.driver.rest.account.request.CreditAmountRequest
+import com.account.transfer.infra.driver.rest.account.request.TransferAmountRequest
+import com.account.transfer.infra.driver.rest.account.response.CreateAccountResponse
+import com.account.transfer.infra.driver.rest.account.response.CreditAmountResponse
+import com.account.transfer.infra.driver.rest.account.response.TransferAmountResponse
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
@@ -37,10 +37,12 @@ class AccountController(
         val output = createAccount.execute(CreateAccountInput(request.accountId))
         return ResponseEntity
             .status(HttpStatus.CREATED)
-            .body(CreateAccountResponse(
-                output.success,
-                message = "Account created successfully with accountId: ${request.accountId}"
-            ))
+            .body(
+                CreateAccountResponse(
+                    output.success,
+                    message = "Account created successfully with accountId: ${request.accountId}"
+                )
+            )
     }
 
     @PostMapping("/transfer")
@@ -57,10 +59,12 @@ class AccountController(
         )
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(TransferAmountResponse(
-                output.success,
-                message = "Amount ${request.amount} transferred from account ${request.from} to account ${request.to}"
-            ))
+            .body(
+                TransferAmountResponse(
+                    output.success,
+                    message = "Amount ${request.amount} transferred from account ${request.from} to account ${request.to}"
+                )
+            )
     }
 
     @PatchMapping("/{accountId}")

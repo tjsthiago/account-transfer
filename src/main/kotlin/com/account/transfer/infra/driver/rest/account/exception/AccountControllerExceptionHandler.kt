@@ -1,10 +1,10 @@
-package com.account.transfer.infra.driver.rest.exception
+package com.account.transfer.infra.driver.rest.account.exception
 
 import com.account.transfer.domain.exceptions.DuplicateAccountException
 import com.account.transfer.domain.exceptions.InsufficientBalanceException
 import com.account.transfer.infra.driven.repository.AccountNotFoundException
-import com.account.transfer.infra.driver.rest.AccountController
-import com.account.transfer.infra.driver.rest.response.CreateAccountResponse
+import com.account.transfer.infra.driver.rest.account.AccountController
+import com.account.transfer.infra.driver.rest.account.response.CreateAccountResponse
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
