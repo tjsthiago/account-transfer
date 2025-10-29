@@ -16,7 +16,7 @@ class AccountInMemoryPersistenceAdapter : AccountPersistencePort {
 
     override fun findByAccountId(id: Long): Account {
         return accounts.firstOrNull { it.getAccountId() == id }
-            ?: throw AccountNotFoundException("Account with id[$id] not found.")
+            ?: throw AccountNotFoundException("Account with id [$id] not found")
     }
 
     override fun save(account: Account) {

@@ -102,6 +102,65 @@ class AccountControllerTest @Autowired constructor(
             }
     }
 
+    @Test
+    fun `should throw InsufficientBalanceException when try to transfer amount greater than the origin account balance`() {
+        val originAccountId = Random.nextLong(0, 99999)
+        val originAccountRequest = CreateAccountRequest(originAccountId)
+
+        val amountToTransfer = 150.0
+
+        val amountToCreditInOriginAccount = 100.0
+        val creditAmountInput = CreditAmountInput(originAccountId, amountToCreditInOriginAccount)
+
+        val targetAccountId = Random.nextLong(0, 99999)
+        val targetAccountRequest = CreateAccountRequest(targetAccountId)
+
+        createAccount(originAccountRequest)
+        credit(originAccountId, creditAmountInput)
+
+        createAccount(targetAccountRequest)
+
+        val transferAmountRequest = TransferAmountRequest(
+            originAccountId,
+            targetAccountId,
+            amountToTransfer
+        )
+
+        mockMvc
+            .post("$baseUrl/transfer") {
+                contentType = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(transferAmountRequest)
+            }
+            .andDo { print() }
+            .andExpect {
+                status { isPreconditionRequired() }
+                content { contentType(MediaType.APPLICATION_JSON) }
+                jsonPath("$.success") { value("false") }
+                jsonPath("$.message") { value("The account [$originAccountId] has no sufficient balance to transfer.") }
+            }
+    }
+
+    @Test
+    fun `Should throw AccountNotFoundException when try to credit an non existing account`() {
+        val nonExistingAccountId = Random.nextLong(0, 99999)
+
+        val amountToCredit = 50.0
+        val creditAmountInput = CreditAmountInput(nonExistingAccountId, amountToCredit)
+
+        mockMvc
+            .patch("$baseUrl/$nonExistingAccountId") {
+                contentType = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(creditAmountInput)
+            }
+            .andDo { print() }
+            .andExpect {
+                status { isNotFound() }
+                content { contentType(MediaType.APPLICATION_JSON) }
+                jsonPath("$.success") { value("false") }
+                jsonPath("$.message") { value("Account with id [$nonExistingAccountId] not found") }
+            }
+    }
+
     private fun createAccount(request: CreateAccountRequest) {
         val expectedMessage = "Account created successfully with accountId: ${request.accountId}"
 

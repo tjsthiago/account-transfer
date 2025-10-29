@@ -51,7 +51,7 @@ class AccountPersistenceAdapterTest {
         val thrown = assertThrows(AccountNotFoundException::class.java) {
             accountPersistenceAdapter.findByAccountId(nonexistentAccountId)
         }
-        assertEquals("Account with id[$nonexistentAccountId] not found.", thrown.message)
+        assertEquals("Account with id [$nonexistentAccountId] not found", thrown.message)
     }
 
     @Test

@@ -53,7 +53,7 @@ class InMemoryAccountRepositoryTest {
             "AccountNotFoundException was expected"
         )
 
-        assertEquals("Account with id[$nonexistentAccountId] not found.", thrown.message)
+        assertEquals("Account with id [$nonexistentAccountId] not found", thrown.message)
         assertTrue(accountPersistencePort.findAll().isNotEmpty())
     }
 
