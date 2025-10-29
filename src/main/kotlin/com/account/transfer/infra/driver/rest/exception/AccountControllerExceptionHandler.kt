@@ -1,4 +1,4 @@
-package com.account.transfer.infra.driver.exception
+package com.account.transfer.infra.driver.rest.exception
 
 import com.account.transfer.domain.exceptions.DuplicateAccountException
 import com.account.transfer.domain.exceptions.InsufficientBalanceException
