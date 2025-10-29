@@ -3,6 +3,7 @@ package com.account.transfer.infra.driver.rest
 import com.account.transfer.application.usecase.account.create.CreateAccount
 import com.account.transfer.application.usecase.ammount.credit.CreditAmount
 import com.account.transfer.application.usecase.ammount.transfer.TransferAmountBetweenAccounts
+import com.account.transfer.domain.exceptions.DuplicateAccountException
 import com.account.transfer.infra.driver.rest.request.CreateAccountRequest
 import com.account.transfer.infra.driver.rest.request.CreditAmountRequest
 import com.account.transfer.infra.driver.rest.request.TransferAmountRequest
@@ -46,6 +47,15 @@ class AccountController(
                     )
                 )
 
+        } catch (ex: DuplicateAccountException) {
+            logger.error("Duplicate account error", ex)
+
+            ResponseEntity.status(HttpStatus.CONFLICT).body(
+                CreateAccountResponse(
+                    success = false,
+                    message = ex.message
+                )
+            )
         } catch (ex: Exception) {
             logger.error("Error on create account", ex)
 
