@@ -30,6 +30,28 @@ class AccountControllerTest @Autowired constructor(
     }
 
     @Test
+    fun `should throw DuplicateAccountException when try to create an account with duplicated accountId`() {
+        val accountId = Random.nextLong(0, 99999)
+        val request = CreateAccountRequest(accountId)
+
+        createAccount(request)
+
+        mockMvc
+            .post(baseUrl) {
+                contentType = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(request)
+            }
+            .andDo { print() }
+            .andExpect {
+                status { isConflict() }
+                content { contentType(MediaType.APPLICATION_JSON) }
+                jsonPath("$.success") { value("false") }
+                jsonPath("$.message") { value("Account with ID $accountId already exists") }
+            }
+
+    }
+
+    @Test
     fun `should credit an account`() {
         val accountId = Random.nextLong(0, 99999)
         createAccount(CreateAccountRequest(accountId))

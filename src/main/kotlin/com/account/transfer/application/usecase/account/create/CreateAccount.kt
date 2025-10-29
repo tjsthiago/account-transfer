@@ -4,6 +4,7 @@ import com.account.transfer.application.messaging.AccountCreatedMessagePort
 import com.account.transfer.domain.events.AccountCreatedEvent
 import com.account.transfer.application.repository.AccountPersistencePort
 import com.account.transfer.domain.entities.Account
+import com.account.transfer.domain.exceptions.DuplicateAccountException
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -14,17 +15,19 @@ class CreateAccount (
 ) {
 
     fun execute(input: Input): Output {
-        val account = Account(input.accountId)
+        if(existsByAccountId(input)) {
+            throw DuplicateAccountException("Account with ID ${input.accountId} already exists")
+        }
 
-        persistCreatedAccount(account)
+        val accountToPersist = Account(input.accountId)
+
+        accountPersistencePort.save(accountToPersist)
         publishAccountCreatedEvent(input)
 
         return Output(true)
     }
 
-    private fun persistCreatedAccount(account: Account) {
-        accountPersistencePort.save(account)
-    }
+    private fun existsByAccountId(input: Input): Boolean = accountPersistencePort.existsByAccountId(input.accountId)
 
     private fun publishAccountCreatedEvent(input: Input) {
         accountCreatedMessagePort.send(

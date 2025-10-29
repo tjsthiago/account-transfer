@@ -3,11 +3,13 @@ package com.account.transfer.application.usecase
 import com.account.transfer.application.messaging.AccountCreatedMessagePort
 import com.account.transfer.application.repository.AccountPersistencePort
 import com.account.transfer.application.usecase.account.create.CreateAccount
+import com.account.transfer.domain.exceptions.DuplicateAccountException
 import com.account.transfer.application.usecase.account.create.Input as CreateAccountInput
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.context.SpringBootTest
@@ -46,6 +48,26 @@ class CreateAccountTest {
 
         assertTrue(output.success)
         assertEquals(initialAccountBalance, createdAccount.balance)
+    }
+
+    @Test
+    fun `should throw DuplicateAccountException when try to create an account with duplicated accountId`() {
+        val createAccount = CreateAccount(
+            accountPersistencePort,
+            accountCreatedMessageMockAdapter
+        )
+
+        val accountId = 123456L
+        val input = CreateAccountInput(accountId)
+
+        createAccount.execute(input)
+
+        val exception = assertThrows<DuplicateAccountException> {
+            createAccount.execute(input)
+        }
+
+        assertEquals("Account with ID $accountId already exists", exception.message)
+
     }
 
 }

@@ -8,4 +8,6 @@ import java.util.Optional
 interface AccountRepository : JpaRepository<AccountEntity, Long> {
     fun findByAccountId(id: Long): Optional<AccountEntity>
 
+    fun existsByAccountId(id: Long): Boolean
+
 }
