@@ -10,6 +10,10 @@ import org.springframework.stereotype.Component
 class AccountInMemoryPersistenceAdapter : AccountPersistencePort {
     private var accounts = mutableListOf<Account>()
 
+    override fun existsByAccountId(id: Long): Boolean {
+        return accounts.any { it.getAccountId() == id }
+    }
+
     override fun findByAccountId(id: Long): Account {
         return accounts.firstOrNull { it.getAccountId() == id }
             ?: throw AccountNotFoundException("Account with id[$id] not found.")

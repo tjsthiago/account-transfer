@@ -5,6 +5,7 @@ import com.account.transfer.domain.entities.Account
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 
 @Component
 @Primary
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Component
 class AccountPersistenceAdapter (
     private val accountRepository: AccountRepository
 ) : AccountPersistencePort {
+    override fun existsByAccountId(id: Long): Boolean {
+        return accountRepository.existsByAccountId(id)
+    }
 
     override fun findByAccountId(id: Long): Account {
         return convertPersistenceEntityToDomainEntity(
@@ -28,6 +32,7 @@ class AccountPersistenceAdapter (
         throw AccountNotFoundException("Account with id[$accountId] not found.")
     }
 
+    @Transactional
     override fun save(account: Account) {
         val accountEntity = convertDomainEntityToPersistenceEntity(account)
 
@@ -36,6 +41,7 @@ class AccountPersistenceAdapter (
         )
     }
 
+    @Transactional
     override fun update(account: Account) {
         val persisted = findAccountEntityByAccountId(account.getAccountId())
 
@@ -58,6 +64,7 @@ class AccountPersistenceAdapter (
         return listAsModel
     }
 
+    @Transactional
     override fun deleteAll() {
         accountRepository.deleteAll()
     }
