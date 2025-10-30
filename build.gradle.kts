@@ -24,6 +24,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-aop")
 	implementation("org.flywaydb:flyway-core")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("jakarta.validation:jakarta.validation-api:3.0.2")
+	implementation("org.hibernate.validator:hibernate-validator:8.0.1.Final")
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.mockito:mockito-core:5.2.0")

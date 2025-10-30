@@ -29,7 +29,7 @@ class AccountPersistenceAdapter (
         if(persisted.isPresent)
             return persisted.get()
 
-        throw AccountNotFoundException("Account with id[$accountId] not found.")
+        throw AccountNotFoundException("Account with id [$accountId] not found")
     }
 
     @Transactional

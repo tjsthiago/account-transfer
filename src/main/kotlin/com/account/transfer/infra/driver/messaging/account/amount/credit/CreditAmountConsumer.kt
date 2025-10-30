@@ -1,9 +1,10 @@
-package com.account.transfer.infra.driver.messaging
+package com.account.transfer.infra.driver.messaging.account.amount.credit
 
 import com.account.transfer.application.usecase.ammount.credit.CreditAmount
-import com.account.transfer.infra.driver.messaging.input.CreditAmountInputMessage
+import com.rabbitmq.client.Channel
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.amqp.core.Message
 import org.springframework.amqp.rabbit.annotation.RabbitListener
 import org.springframework.stereotype.Component
 import com.account.transfer.application.usecase.ammount.credit.Input as CreditAmountInput
@@ -14,22 +15,22 @@ class CreditAmountConsumer (
 ) {
     private val logger: Logger = LoggerFactory.getLogger(CreditAmountConsumer::class.java)
 
-    @RabbitListener(queues = ["\${queue.credit.amount}"], ackMode = "AUTO")
-    fun creditAmount(input: CreditAmountInputMessage) {
+    @RabbitListener(queues = ["\${queue.credit.amount}"], ackMode = "AUTO", errorHandler = "accountMessagingExceptionHandler")
+    fun creditAmount(input: CreditAmountInputMessage, message: Message, channel: Channel) {
         logger.info(
             "Received request to credit amount ${input.amount} to account ${input.accountId}"
         )
 
-        try {
-            creditAmount.execute(
-                CreditAmountInput(
-                    input.accountId,
-                    input.amount
-                )
+        creditAmount.execute(
+            CreditAmountInput(
+                input.accountId,
+                input.amount
             )
-        } catch (e: Exception) {
-            logger.error("Error processing credit amount request: ${e.message}", e)
-        }
+        )
+
+        logger.info(
+            "The amount of ${input.amount} credited into account ${input.accountId} successfully"
+        )
     }
 
 }
