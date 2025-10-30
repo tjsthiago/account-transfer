@@ -9,6 +9,7 @@ import com.account.transfer.infra.driver.rest.account.request.TransferAmountRequ
 import com.account.transfer.infra.driver.rest.account.response.CreateAccountResponse
 import com.account.transfer.infra.driver.rest.account.response.CreditAmountResponse
 import com.account.transfer.infra.driver.rest.account.response.TransferAmountResponse
+import jakarta.validation.Valid
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
@@ -30,11 +31,9 @@ class AccountController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@RequestBody request: CreateAccountRequest): ResponseEntity<CreateAccountResponse> {
-        logger.info(
-            "Received request to create account with accountId: ${request.accountId}"
-        )
-        val output = createAccount.execute(CreateAccountInput(request.accountId))
+    fun create(@Valid @RequestBody request: CreateAccountRequest): ResponseEntity<CreateAccountResponse> {
+        logger.info("Received request to create account with accountId: ${request.accountId}")
+        val output = createAccount.execute(CreateAccountInput(request.accountId!!))
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(
