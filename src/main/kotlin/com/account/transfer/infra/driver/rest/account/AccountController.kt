@@ -1,6 +1,7 @@
 package com.account.transfer.infra.driver.rest.account
 
 import com.account.transfer.application.usecase.account.create.CreateAccount
+import com.account.transfer.application.usecase.account.info.GetAccountInfo
 import com.account.transfer.application.usecase.ammount.credit.CreditAmount
 import com.account.transfer.application.usecase.ammount.transfer.TransferAmountBetweenAccounts
 import com.account.transfer.infra.driver.rest.account.request.CreateAccountRequest
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import com.account.transfer.application.usecase.account.info.Input as GetAccountInfoInput
 import com.account.transfer.application.usecase.account.create.Input as CreateAccountInput
 import com.account.transfer.application.usecase.ammount.credit.Input as CreditAmountInput
 import com.account.transfer.application.usecase.ammount.transfer.Input as TransferAmountInput
@@ -24,10 +26,21 @@ import com.account.transfer.application.usecase.ammount.transfer.Input as Transf
 class AccountController(
     private val createAccount: CreateAccount,
     private val creditAmount: CreditAmount,
+    private val getAccountInfo: GetAccountInfo,
     private val transferAmountBetweenAccounts: TransferAmountBetweenAccounts
 ) {
 
     private val logger: Logger = LoggerFactory.getLogger(AccountController::class.java)
+
+    @GetMapping("/{accountId}")
+    @ResponseStatus(HttpStatus.OK)
+    fun getAccountInfo(@PathVariable accountId: Long): ResponseEntity<Any> {
+        logger.info("Received request to get info for accountId: $accountId")
+        val output = getAccountInfo.execute(GetAccountInfoInput(accountId))
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(output)
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

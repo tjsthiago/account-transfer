@@ -9,10 +9,8 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter
 import org.springframework.amqp.support.converter.MessageConverter
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.web.client.RestTemplate
 
 @Configuration
 class RabbitMQConfig {
@@ -97,9 +95,6 @@ class RabbitMQConfig {
             .to(amountBetweenAccountsTransferredExchange())
             .with(amountBetweenAccountsTransferredKey)
     }
-
-    @Bean
-    fun restTemplate(builder: RestTemplateBuilder): RestTemplate = builder.build()
 
     @Bean
     fun converter(): MessageConverter {
