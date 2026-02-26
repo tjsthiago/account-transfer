@@ -24,7 +24,7 @@ class AccountControllerTest @Autowired constructor(
 
     @Test
     fun `should create a new account`() {
-        val request = CreateAccountRequest(Random.nextLong(0, 99999))
+        val request = CreateAccountRequest(Random.nextLong(0, 99999), "email@email.com")
 
         createAccount(request)
     }
@@ -32,7 +32,7 @@ class AccountControllerTest @Autowired constructor(
     @Test
     fun `should throw DuplicateAccountException when try to create an account with duplicated accountId`() {
         val accountId = Random.nextLong(0, 99999)
-        val request = CreateAccountRequest(accountId)
+        val request = CreateAccountRequest(accountId, "email@email.com")
 
         createAccount(request)
 
@@ -54,7 +54,7 @@ class AccountControllerTest @Autowired constructor(
     @Test
     fun `should credit an account`() {
         val accountId = Random.nextLong(0, 99999)
-        createAccount(CreateAccountRequest(accountId))
+        createAccount(CreateAccountRequest(accountId, "email@email.com"))
 
         val amountToCredit = 50.0
         val creditAmountInput = CreditAmountInput(accountId, amountToCredit)
@@ -65,7 +65,7 @@ class AccountControllerTest @Autowired constructor(
     @Test
     fun `should transfer amount between two accounts`() {
         val originAccountId = Random.nextLong(0, 99999)
-        val originAccountRequest = CreateAccountRequest(originAccountId)
+        val originAccountRequest = CreateAccountRequest(originAccountId, "email@email.com")
 
         val amountToTransfer = 50.0
 
@@ -73,7 +73,7 @@ class AccountControllerTest @Autowired constructor(
         val creditAmountInput = CreditAmountInput(originAccountId, amountToCreditInOriginAccount)
 
         val targetAccountId = Random.nextLong(0, 99999)
-        val targetAccountRequest = CreateAccountRequest(targetAccountId)
+        val targetAccountRequest = CreateAccountRequest(targetAccountId, "email@email.com")
 
         createAccount(originAccountRequest)
         credit(originAccountId, creditAmountInput)
@@ -105,7 +105,7 @@ class AccountControllerTest @Autowired constructor(
     @Test
     fun `should throw InsufficientBalanceException when try to transfer amount greater than the origin account balance`() {
         val originAccountId = Random.nextLong(0, 99999)
-        val originAccountRequest = CreateAccountRequest(originAccountId)
+        val originAccountRequest = CreateAccountRequest(originAccountId, "email@email.com")
 
         val amountToTransfer = 150.0
 
@@ -113,7 +113,7 @@ class AccountControllerTest @Autowired constructor(
         val creditAmountInput = CreditAmountInput(originAccountId, amountToCreditInOriginAccount)
 
         val targetAccountId = Random.nextLong(0, 99999)
-        val targetAccountRequest = CreateAccountRequest(targetAccountId)
+        val targetAccountRequest = CreateAccountRequest(targetAccountId, "email@email.com")
 
         createAccount(originAccountRequest)
         credit(originAccountId, creditAmountInput)
